@@ -1,16 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../layout/dashboard/Dashboard";
 import Main from "../layout/main/Main";
-import AccountCreator from "../pages/register/AccountCreator";
+import AppliedJobs from "../pages/candidateDashboard/AppliedJobs";
+import CandidateDashboard from "../pages/candidateDashboard/CandidateDashboard";
+import AddJob from "../pages/employeeDashboard/AddJob";
+import {
+  default as AllJobs,
+  default as EmployerDashboard,
+} from "../pages/employeeDashboard/AllJobs";
+import ApplicantDetails from "../pages/employeeDashboard/ApplicantDetails";
+import ApplicantsList from "../pages/employeeDashboard/ApplicantsList";
 import Home from "../pages/home/Home";
 import JobDetails from "../pages/JobDetails";
 import Jobs from "../pages/Jobs";
 import Login from "../pages/Login";
+import AccountCreator from "../pages/register/AccountCreator";
 import Signup from "../pages/Signup";
 import PrivateRoute from "../utils/PrivateRoute";
-import AddJob from "../pages/employeeDashboard/AddJob";
-import EmployerDashboard from "../pages/employeeDashboard/EmployerDashboard";
-import CandidateDashboard from "../pages/candidateDashboard/CandidateDashboard";
 
 const routes = createBrowserRouter([
   {
@@ -27,7 +33,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/job-details/:id",
-        element: <JobDetails />,
+        element: (
+          <PrivateRoute>
+            <JobDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -63,6 +73,22 @@ const routes = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "applied-jobs",
+        element: <AppliedJobs />,
+      },
+      {
+        path: "applicants",
+        element: <ApplicantsList />,
+      },
+      {
+        path: "applicant-details",
+        element: <ApplicantDetails />,
+      },
+      {
+        path: "all-jobs",
+        element: <AllJobs />,
+      },
       {
         path: "add-job",
         element: <AddJob />,
